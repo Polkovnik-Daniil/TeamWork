@@ -1,0 +1,6 @@
+﻿//это проверяет все textbox на то пусты ли они
+//bool isEmty = Controls.OfType<TextBox>().Any(x => string.IsNullOrWhiteSpace(x.Text));
+//textBox1.Text = isEmty ? "Есть пустые" : "Нет пустых";
+
+//Текстовое поле которое может иметь маску
+//<xctk:MaskedTextBox x:Name="maskedTextBox1" Mask=" /247" Margin="556,143,53,202" TextChanged="MaskedTextBox_TextChanged" />
