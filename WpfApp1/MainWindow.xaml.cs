@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Windows;
-using System.Data.SqlClient;
+using Xceed.Wpf.Toolkit;
 using System.Windows.Media;
+using System.Data.SqlClient;
+using System.Drawing;
 using System.Windows.Controls;
 
 namespace WpfApp1
@@ -15,15 +17,29 @@ namespace WpfApp1
         {
             InitializeComponent();
         }
+        private int Error = 0;
         private SqlConnection connection;
+        //алгоритм проверки корректности введенных данных
+        private void ResultCheck(TextBox item, string color)
+        {
+            switch (color)
+            {
+                case "Blue":
+                    item.BorderBrush = System.Windows.Media.Brushes.Blue;
+                    break;
+                case "Red":
+                    item.BorderBrush = System.Windows.Media.Brushes.Red;
+                    break;
+            }
+        }
         //проверяет textBox-ы на пустоту
         private void CheckTextBox(TextBox[] TextBoxArray)
         {
             foreach (TextBox item in TextBoxArray)
                 if (item.Text == "")
-                    item.BorderBrush = Brushes.Red;
+                    item.BorderBrush = System.Windows.Media.Brushes.Red;
                 else
-                    item.BorderBrush = Brushes.Blue;
+                    item.BorderBrush = System.Windows.Media.Brushes.Blue;
         }
         //при загрузке галвного окна
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -40,11 +56,16 @@ namespace WpfApp1
                 this.Close();
             }
         }
-
+        //обработка нажатия кнопки "Добавить"
         private void button1_Click(object sender, RoutedEventArgs e)
         {
             TextBox[] TextBoxArray = new TextBox[] { textBox1, textBox2, textBox3, textBox4, textBox5 };
             CheckTextBox(TextBoxArray);
+
+            if (this.Error == 7)
+            {
+                //после проверки есть возможность добавить в БД авиарейс
+            }
         }
     }
 }

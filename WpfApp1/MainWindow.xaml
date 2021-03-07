@@ -23,19 +23,18 @@
                 <Grid Background="#FFE5E5E5">
                     <GroupBox Header="Регистрация" HorizontalAlignment="Stretch" Height="Auto" VerticalAlignment="Stretch" Width="Auto">
                         <Grid Background="#FFE5E5E5" Margin="-1,0,1,-0.4">
-                            <Label x:Name="label1" Content="Количество мест" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="409,137,0,0" Width="140"/>
+                            <xctk:DateTimePicker x:Name="datePicker1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="575,23,0,0" Width="180"/>
+                            <Label x:Name="label1" Content="Количество мест" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="391,78,0,0" Width="140"/>
                             <Label x:Name="label2" Content="Аэропорт прибытия" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,196,0,0" Width="140"/>
                             <Label x:Name="label3" Content="Аэропорт отправления" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,137,0,0" Width="140"/>
                             <Label x:Name="label4" Content="Авиакомпания" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,78,0,0" Width="140" Height="25"/>
-                            <Label x:Name="label5" Content="Номер авиарейса" HorizontalAlignment="Left" Margin="30,19,0,0" VerticalAlignment="Top" Width="140" Height="24"/>
-                            <Label x:Name="label6" Content="Дата отправления" HorizontalAlignment="Left" Margin="409,19,0,0" VerticalAlignment="Top" Width="140" Height="24"/>
-                            <Label x:Name="label7" Content="Время отправления" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="409,78,0,0" Width="140" Height="25"/>
+                            <Label x:Name="label5" Content="Номер авиарейса" HorizontalAlignment="Left" Margin="30,19,0,0" VerticalAlignment="Top" Width="140" Height="29"/>
+                            <Label x:Name="label6" Content="Дата и время отправления" HorizontalAlignment="Left" Margin="391,19,0,0" VerticalAlignment="Top" Width="165" Height="24"/>
                             <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="165" Margin="176,84,0,0" BorderBrush="Red" MaxLength="30"/>
                             <TextBox x:Name="textBox2" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="165" Margin="176,24,0,0" BorderBrush="Red" MaxLength="30"/>
-                            <TextBox x:Name="textBox3" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="165" Margin="555,141,0,0" BorderBrush="Red" MaxLength="10"/>
+                            <TextBox x:Name="textBox3" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="165" Margin="574,82,0,0" BorderBrush="Red" MaxLength="10"/>
                             <TextBox x:Name="textBox4" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="165" Margin="176,201,0,0" BorderBrush="Red" MaxLength="30"/>
                             <TextBox x:Name="textBox5" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="165" Margin="176,142,0,0" BorderBrush="Red" MaxLength="30"/>
-                            <xctk:MaskedTextBox x:Name="maskedTextBox1" Mask="/300" Margin="364,294,245,51" Text="(___/300" TextChanged="maskedTextBox1_TextChanged"/>
                             <Button x:Name="button1" Content="Добавить" HorizontalAlignment="Left" Margin="551,198,0,0" VerticalAlignment="Top" Width="110" Height="35" Click="button1_Click"/>
                         </Grid>
                     </GroupBox>
@@ -51,7 +50,5 @@
                 <Grid Background="#FFE5E5E5"/>
             </TabItem>
         </TabControl>
-        <DatePicker HorizontalAlignment="Left" VerticalAlignment="Top" Margin="564,64,0,0" Width="165"/>
-        <DatePicker HorizontalAlignment="Left" VerticalAlignment="Top" Margin="564,123,0,0" Width="165"/>
     </Grid>
 </Window>

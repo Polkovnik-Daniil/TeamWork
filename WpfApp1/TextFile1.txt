@@ -4,3 +4,9 @@
 
 //Текстовое поле которое может иметь маску
 //<xctk:MaskedTextBox x:Name="maskedTextBox1" Mask=" /247" Margin="556,143,53,202" TextChanged="MaskedTextBox_TextChanged" />
+//Текстовое поле которое может иметь маску времени
+//<xctk:MaskedTextBox x:Name="maskedTextBox1" Mask="99:99" HorizontalAlignment="Left" Height="21" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="165" Margin="555,82,0,0" BorderBrush="Red" MaxLength="30"/>
+//его функционал
+//string[] words = maskedTextBox1.Text.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+//if (int.Parse(words[0]) < 24 && int.Parse(words[1]) < 60)
+//    dateDepartured = datePicker1;
