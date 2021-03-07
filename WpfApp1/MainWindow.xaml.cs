@@ -7,6 +7,7 @@ using System.Windows.Media;
 using System.Data.SqlClient;
 using System.Windows.Controls;
 using System.Xml.Serialization;
+using System.Data;
 
 namespace WpfApp1
 {
@@ -58,10 +59,11 @@ namespace WpfApp1
         //при загрузке галвного окна
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            
             //при загрузке окна проверяем соединение с SQLServer
             try
             {
-                connection = new SqlConnection(@"Data Source=DESKTOP-AR14CLQ\SQLEXPRESS;Initial Catalog=Kurswork;Integrated Security=True");
+                connection = new SqlConnection(@"Data Source=DESKTOP-HC1JS1T\SQLEXPRESS; Initial Catalog=Flight; Integrated Security=True");
                 connection.Open();
             }
             catch (Exception ex)
@@ -73,6 +75,7 @@ namespace WpfApp1
         //фиксация информации занесенной в бд через интерфейс программы для восстановления данных при их потере
         private void XmlFixation(string NameFile)
         {
+            /*
             try
             {
                 // объект для сериализации
@@ -89,10 +92,11 @@ namespace WpfApp1
             catch (Exception ex)
             {
                 System.Windows.MessageBox.Show(ex.Message);
-            }
+            }*/
         }
         private void XmlReader(string NameFile)
         {
+            /*
             try
             {
                 XmlSerializer formatter = new XmlSerializer(typeof(InformationAirFlight));
@@ -108,7 +112,7 @@ namespace WpfApp1
             catch (Exception ex)
             {
                 System.Windows.MessageBox.Show(ex.Message);
-            }
+            }*/
         }
         //обработка нажатия кнопки "Добавить" на tabControl авиарейсы
         private void button1_Click(object sender, RoutedEventArgs e)
@@ -128,6 +132,21 @@ namespace WpfApp1
             {
                 System.Windows.MessageBox.Show("Uncorrected value!\n(A red outline of the text field indicates that the entered data is incorrect)", "Error!");
             }
+        }
+
+        private void FlightView(object sender, RoutedEventArgs e)         // выводим таблицу БД в окно (снизу)
+        {
+            
+            string cmd = "SELECT * FROM Flight";            // Из какой таблицы нужен вывод 
+            SqlCommand createCommand = new SqlCommand(cmd, connection);
+            createCommand.ExecuteNonQuery();
+
+            SqlDataAdapter dataAdp = new SqlDataAdapter(createCommand);
+            DataTable dt = new DataTable("Flight");         // В скобках указываем название таблицы
+            dataAdp.Fill(dt);
+            flightGrid1.ItemsSource = dt.DefaultView;       // Сам вывод 
+            connection.Close();
+            
         }
     }
 }

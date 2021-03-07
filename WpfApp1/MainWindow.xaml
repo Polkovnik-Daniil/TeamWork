@@ -8,7 +8,7 @@
         xmlns:extensions="using:Microsoft.Toolkit.Uwp.UI.Extensions"
         mc:Ignorable="d"
         Loaded="Window_Loaded"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="505" Width="866">
     <Grid>
         <TabControl HorizontalAlignment="Stretch" Height="Auto" VerticalAlignment="Stretch" Width="Auto" Margin="0,0,-0.4,0" RenderTransformOrigin="0.5,0.5">
             <TabControl.RenderTransform>
@@ -36,12 +36,27 @@
                             <TextBox x:Name="textBox4" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="165" Margin="176,201,0,0" BorderBrush="Red" MaxLength="30"/>
                             <TextBox x:Name="textBox5" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="165" Margin="176,142,0,0" BorderBrush="Red" MaxLength="30"/>
                             <Button x:Name="button1" Content="Добавить" HorizontalAlignment="Left" Margin="551,198,0,0" VerticalAlignment="Top" Width="110" Height="35" Click="button1_Click"/>
+                            <DataGrid x:Name="flightGrid1" HorizontalAlignment="Left" Height="Auto" Margin="10,255,0,0" VerticalAlignment="Top" Width="826" AutoGenerateColumns="True" Loaded="FlightView"/>
                         </Grid>
                     </GroupBox>
                 </Grid>
             </TabItem>
             <TabItem Header="Пассажиры">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+                    <GroupBox Header="Регистрация" HorizontalAlignment="Stretch" Height="Auto" VerticalAlignment="Stretch" Width="Auto">
+                        <Grid Background="#FFE5E5E5" Margin="-1,0,1,-0.4">
+                            <xctk:DateTimePicker x:Name="datePicker2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="176,201,0,0" Width="180"/>
+                            <Label x:Name="label8" Content="Фамилия" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,137,0,0" Width="140"/>
+                            <Label x:Name="label9" Content="Имя" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,78,0,0" Width="140" Height="25"/>
+                            <Label x:Name="label10" Content="Номер паспорта" HorizontalAlignment="Left" Margin="30,19,0,0" VerticalAlignment="Top" Width="140" Height="29"/>
+                            <Label x:Name="label11" Content="Дата рождения" HorizontalAlignment="Left" Margin="30,196,0,0" VerticalAlignment="Top" Width="165" Height="24"/>
+                            <TextBox x:Name="textBox6" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="165" Margin="176,84,0,0" BorderBrush="Red" MaxLength="30"/>
+                            <TextBox x:Name="textBox7" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="165" Margin="176,24,0,0" BorderBrush="Red" MaxLength="30"/>
+                            <TextBox x:Name="textBox10" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="165" Margin="176,142,0,0" BorderBrush="Red" MaxLength="30"/>
+                            <Button x:Name="button2" Content="Добавить" HorizontalAlignment="Left" Margin="551,198,0,0" VerticalAlignment="Top" Width="110" Height="35" Click="button1_Click"/>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
             </TabItem>
             <TabItem Header="Билеты">
                 <Grid Background="#FFE5E5E5"/>
