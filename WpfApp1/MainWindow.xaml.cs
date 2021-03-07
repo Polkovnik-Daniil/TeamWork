@@ -7,6 +7,7 @@ using System.Windows.Media;
 using System.Data.SqlClient;
 using System.Windows.Controls;
 using System.Xml.Serialization;
+using System.Reflection;
 
 namespace WpfApp1
 {
@@ -47,7 +48,7 @@ namespace WpfApp1
                 if (item.Text == "")
                     ResultCheck(item, "Red");
                 else
-                    ResultCheck(item, "Red");
+                    ResultCheck(item, "Blue");
         }
         //проверяет значение текстового поля является ли оно числом
         private bool CheckIntTextBox(TextBox item)
@@ -70,15 +71,43 @@ namespace WpfApp1
                 this.Close();
             }
         }
+        private object ContructorInitialisation(string NameClass, object[] ArrayElement)
+        {
+            try
+            {
+                Type type = Type.GetType($@"WpfApp1.{NameClass}");
+                if (type != null)
+                {
+                    MethodInfo method = Type.GetType($@"WpfApp1.{NameClass}", true).GetMethod(NameClass);                                                                                                            
+                    if (method != null)
+                    {
+                        object result = null;
+                        ParameterInfo[] parameters = method.GetParameters();
+                        object p = Activator.CreateInstance(type, null);
+                        if (parameters.Length == 0)
+                            result = method.Invoke(p, null);
+                        else
+                            result = method.Invoke(p, ArrayElement);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show(ex.Message, "Error!");
+            }
+            return ArrayElement;//garbage (not true)
+        }
         //фиксация информации занесенной в бд через интерфейс программы для восстановления данных при их потере
         private void XmlFixation(string NameFile)
         {
             try
             {
+                // Создает экземпляр объекта
+                object Info = Activator.CreateInstance(Type.GetType($@"WpfApp1.{NameFile}", true));
                 // объект для сериализации
-                InformationAirFlight Info = new InformationAirFlight(int.Parse(textBox3.Text), textBox1.Text, textBox4.Text, textBox5.Text, textBox2.Text);
+                ContructorInitialisation(NameFile, ReturnInterfaceElement(NameFile));
                 // передаем в конструктор тип класса
-                XmlSerializer formatter = new XmlSerializer(typeof(InformationAirFlight));
+                XmlSerializer formatter = new XmlSerializer(Type.GetType(NameFile, true));
                 // получаем поток, куда будем записывать сериализованный объект
                 using (FileStream fs = new FileStream(NameFile + (Directory.GetFiles(@".\", "*.xml", SearchOption.AllDirectories).Length + 1) + ".xml", FileMode.Append))
                 {
@@ -91,16 +120,34 @@ namespace WpfApp1
                 System.Windows.MessageBox.Show(ex.Message);
             }
         }
+        //метод возвращает содеожимое tabconrol элементов
+        private object[] ReturnInterfaceElement(string NameClass)
+        {
+            object[] ArrayElement = null;
+            switch (NameClass)
+            {
+                case "InformationAirFlight":
+                    ArrayElement = new object[] { textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, textBox5.Text };
+                    break;
+                default:
+                    Error--;
+                    System.Windows.MessageBox.Show("Ошибка инициализации объектов","Error!");
+                    break;
+            }
+            return ArrayElement;
+        }
+        //don`t work
         private void XmlReader(string NameFile)
         {
             try
             {
+
                 XmlSerializer formatter = new XmlSerializer(typeof(InformationAirFlight));
                 for (int i = 0; i < Directory.GetFiles(@".\", $@"{NameFile}*.xml", SearchOption.AllDirectories).Length; i++)
                 {
-                    using (FileStream fs = new FileStream("Information" + (i + 1) + ".xml", FileMode.OpenOrCreate))
+                    using (FileStream fs = new FileStream($@"{NameFile}" + (i + 1) + ".xml", FileMode.OpenOrCreate))
                     {
-                        InformationAirFlight information = (InformationAirFlight)formatter.Deserialize(fs);
+                        //InformationAirFlight information = (InformationAirFlight)formatter.Deserialize(fs);
                         fs.Close();
                     }
                 }
@@ -113,15 +160,15 @@ namespace WpfApp1
         //обработка нажатия кнопки "Добавить" на tabControl авиарейсы
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            TextBox[] TextBoxArray = new TextBox[] { textBox1, textBox2, textBox3, textBox4, textBox5 };
+            TextBox[] TextBoxArray = new TextBox[] { textBox1, textBox2, textBox4, textBox5 };
             CheckTextBox(TextBoxArray);
-            Error = CheckIntTextBox(textBox3) ? Error++ : Error--;
-            if (this.Error == 7)
+            Error = CheckIntTextBox(textBox3) ? Error + 1 : Error - 1;
+            XmlFixation("InformationAirFlight");
+            if (this.Error == 5)
             {
                 //после проверки есть возможность добавить в БД авиарейс
 
                 //после добавления данных в таблицу
-                XmlFixation("InformationAirFlight");
                 System.Windows.MessageBox.Show("Data was added in database!", "Successful!");
             }
             else

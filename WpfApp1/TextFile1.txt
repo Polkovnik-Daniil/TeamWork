@@ -10,3 +10,7 @@
 //string[] words = maskedTextBox1.Text.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
 //if (int.Parse(words[0]) < 24 && int.Parse(words[1]) < 60)
 //    dateDepartured = datePicker1;
+
+
+// объект для сериализации
+//Info = new typeof(Info)(Type.GetType(NameFile, true))(int.Parse(textBox3.Text), textBox1.Text, textBox4.Text, textBox5.Text, textBox2.Text);

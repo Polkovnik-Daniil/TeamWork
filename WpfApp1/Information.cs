@@ -15,15 +15,16 @@ namespace WpfApp1
         private string AirportArrive;
         private string AirportDeparture;
         private string NumberAirFlight;
-        public InformationAirFlight(int NumberofSeats, string AirCompony, 
-            string AirportArrive, string AirportDeparture, string NumberAirFlight)
+        public InformationAirFlight() { }
+        public InformationAirFlight(object[] Result/*int NumberofSeats, string AirCompony, 
+            string AirportArrive, string AirportDeparture, string NumberAirFlight*/)
         {
             this.data = DateTime.Now;
-            this.AirCompony = AirCompony;
-            this.AirportArrive = AirportArrive;
-            this.NumberofSeats = NumberofSeats;
-            this.NumberAirFlight = NumberAirFlight;
-            this.AirportDeparture = AirportDeparture;
+            this.NumberofSeats = (int)Result[0];
+            this.AirCompony = (string)Result[1];
+            this.AirportArrive = (string)Result[2];
+            this.NumberAirFlight = (string)Result[4];
+            this.AirportDeparture = (string)Result[3];
         }
     }
 }
