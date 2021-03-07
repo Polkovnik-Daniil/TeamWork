@@ -1,10 +1,12 @@
 ﻿using System;
+using System.IO;
 using System.Windows;
+using System.Drawing;
 using Xceed.Wpf.Toolkit;
 using System.Windows.Media;
 using System.Data.SqlClient;
-using System.Drawing;
 using System.Windows.Controls;
+using System.Xml.Serialization;
 
 namespace WpfApp1
 {
@@ -26,9 +28,15 @@ namespace WpfApp1
             {
                 case "Blue":
                     item.BorderBrush = System.Windows.Media.Brushes.Blue;
+                    Error++;
                     break;
                 case "Red":
                     item.BorderBrush = System.Windows.Media.Brushes.Red;
+                    Error--;
+                    break;
+                default:
+                    System.Windows.MessageBox.Show("Error conflict situation!", "Error!");
+                    Error--;
                     break;
             }
         }
@@ -37,9 +45,15 @@ namespace WpfApp1
         {
             foreach (TextBox item in TextBoxArray)
                 if (item.Text == "")
-                    item.BorderBrush = System.Windows.Media.Brushes.Red;
+                    ResultCheck(item, "Red");
                 else
-                    item.BorderBrush = System.Windows.Media.Brushes.Blue;
+                    ResultCheck(item, "Red");
+        }
+        //проверяет значение текстового поля является ли оно числом
+        private bool CheckIntTextBox(TextBox item)
+        {
+            int num;
+            return int.TryParse(item.Text, out num) ? true : false;
         }
         //при загрузке галвного окна
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -56,15 +70,63 @@ namespace WpfApp1
                 this.Close();
             }
         }
-        //обработка нажатия кнопки "Добавить"
+        //фиксация информации занесенной в бд через интерфейс программы для восстановления данных при их потере
+        private void XmlFixation(string NameFile)
+        {
+            try
+            {
+                // объект для сериализации
+                InformationAirFlight Info = new InformationAirFlight(int.Parse(textBox3.Text), textBox1.Text, textBox4.Text, textBox5.Text, textBox2.Text);
+                // передаем в конструктор тип класса
+                XmlSerializer formatter = new XmlSerializer(typeof(InformationAirFlight));
+                // получаем поток, куда будем записывать сериализованный объект
+                using (FileStream fs = new FileStream(NameFile + (Directory.GetFiles(@".\", "*.xml", SearchOption.AllDirectories).Length + 1) + ".xml", FileMode.Append))
+                {
+                    formatter.Serialize(fs, Info);
+                    fs.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show(ex.Message);
+            }
+        }
+        private void XmlReader(string NameFile)
+        {
+            try
+            {
+                XmlSerializer formatter = new XmlSerializer(typeof(InformationAirFlight));
+                for (int i = 0; i < Directory.GetFiles(@".\", $@"{NameFile}*.xml", SearchOption.AllDirectories).Length; i++)
+                {
+                    using (FileStream fs = new FileStream("Information" + (i + 1) + ".xml", FileMode.OpenOrCreate))
+                    {
+                        InformationAirFlight information = (InformationAirFlight)formatter.Deserialize(fs);
+                        fs.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show(ex.Message);
+            }
+        }
+        //обработка нажатия кнопки "Добавить" на tabControl авиарейсы
         private void button1_Click(object sender, RoutedEventArgs e)
         {
             TextBox[] TextBoxArray = new TextBox[] { textBox1, textBox2, textBox3, textBox4, textBox5 };
             CheckTextBox(TextBoxArray);
-
+            Error = CheckIntTextBox(textBox3) ? Error++ : Error--;
             if (this.Error == 7)
             {
                 //после проверки есть возможность добавить в БД авиарейс
+
+                //после добавления данных в таблицу
+                XmlFixation("InformationAirFlight");
+                System.Windows.MessageBox.Show("Data was added in database!", "Successful!");
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("Uncorrected value!\n(A red outline of the text field indicates that the entered data is incorrect)", "Error!");
             }
         }
     }
