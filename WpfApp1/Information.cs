@@ -1,30 +1,42 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace WpfApp1
 {
     [Serializable]
-    class InformationAirFlight
+    public class InformationAirFlight
     {
+        [XmlElement("data")]
         private DateTime data;
-        private int NumberofSeats;
-        private string AirCompony;
-        private string AirportArrive;
-        private string AirportDeparture;
-        private string NumberAirFlight;
+        [XmlElement("NumberofSeats")]
+        private int NumberofSeats { get; set; }
+        [XmlElement("AirCompony")]
+        private string AirCompony { get; set; }
+        [XmlElement("AirportArrive")]
+        private string AirportArrive { get; set; }
+        [XmlElement("AirportDeparture")]
+        private string AirportDeparture { get; set; }
+        [XmlElement("NumberAirFlight")]
+        private string NumberAirFlight { get; set; }
         public InformationAirFlight() { }
-        public InformationAirFlight(object[] Result/*int NumberofSeats, string AirCompony, 
-            string AirportArrive, string AirportDeparture, string NumberAirFlight*/)
+        public InformationAirFlight(int NumberofSeats, string AirCompony,
+            string AirportArrive, string AirportDeparture, string NumberAirFlight)
         {
             this.data = DateTime.Now;
-            this.NumberofSeats = (int)Result[0];
-            this.AirCompony = (string)Result[1];
-            this.AirportArrive = (string)Result[2];
-            this.NumberAirFlight = (string)Result[4];
-            this.AirportDeparture = (string)Result[3];
+            this.AirCompony = AirCompony;
+            this.NumberofSeats = NumberofSeats;
+            this.AirportArrive = AirportArrive;
+            this.NumberAirFlight = NumberAirFlight;
+            this.AirportDeparture = AirportDeparture;
         }
+    }
+    [Serializable]
+    public class InformationTickets
+    {
+        private DateTime data;
+        public InformationTickets() { }
+        public InformationTickets(int NumberofSeats, string AirCompony,
+            string AirportArrive, string AirportDeparture, string NumberAirFlight)
+        { }
     }
 }

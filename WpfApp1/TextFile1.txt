@@ -14,3 +14,7 @@
 
 // объект для сериализации
 //Info = new typeof(Info)(Type.GetType(NameFile, true))(int.Parse(textBox3.Text), textBox1.Text, textBox4.Text, textBox5.Text, textBox2.Text);
+// ContructorInitialisation(NameFile, ReturnInterfaceElement(NameFile));
+
+//var Info = Activator.CreateInstance(Type.GetType($@"WpfApp1.{NameFile}", true));
+//ReturnInterfaceElement(NameFile)
