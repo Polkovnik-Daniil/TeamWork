@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.Windows.Controls;
 using System.Xml.Serialization;
 using System.Data;
+using System.Data.OleDb;
 
 namespace WpfApp1
 {
@@ -147,6 +148,26 @@ namespace WpfApp1
             flightGrid1.ItemsSource = dt.DefaultView;       // Сам вывод 
             connection.Close();
             
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                connection.Open();
+                string cmd = "SELECT * FROM Flight";            // Из какой таблицы нужен вывод 
+                SqlCommand createCommand = new SqlCommand(cmd, connection);
+                createCommand.ExecuteNonQuery();
+
+                SqlDataAdapter dataAdp = new SqlDataAdapter(createCommand);
+                DataTable dt = new DataTable("Flight");         // В скобках указываем название таблицы
+                dataAdp.Fill(dt);
+                flightGrid1.ItemsSource = dt.DefaultView;       // Сам вывод 
+                connection.Close();
+            }
+            catch (Exception ex) {
+                System.Windows.MessageBox.Show(ex.Message, "Error!");
+            } 
         }
     }
 }

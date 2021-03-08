@@ -37,6 +37,7 @@
                             <TextBox x:Name="textBox5" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="165" Margin="176,142,0,0" BorderBrush="Red" MaxLength="30"/>
                             <Button x:Name="button1" Content="Добавить" HorizontalAlignment="Left" Margin="551,198,0,0" VerticalAlignment="Top" Width="110" Height="35" Click="button1_Click"/>
                             <DataGrid x:Name="flightGrid1" HorizontalAlignment="Left" Height="Auto" Margin="10,255,0,0" VerticalAlignment="Top" Width="826" AutoGenerateColumns="True" Loaded="FlightView"/>
+                            <Button Content="Обновить" HorizontalAlignment="Left" VerticalAlignment="Top" Width="141" Margin="690,198,0,0" Height="35" Click="Button_Click"/>
                         </Grid>
                     </GroupBox>
                 </Grid>
